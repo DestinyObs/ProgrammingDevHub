@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ProgrammingDevHub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ProgrammingDevHub.styles.css" asp-append-version="true" />
+</head>
+
+<style>
+    .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        line-height: 1.45;
+        color: #333;
+        background: #f7fafc;
+    }
+    </style>
+<body>
+
+        <header class="p-3 mb-3 border-bottom">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap" /></svg>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 link-secondary">Home</a></li>
+                        <li><a asp-area="" asp-controller="Club" asp-action="Index" class="nav-link px-2 link-body-emphasis">Club</a></li>
+                        <li><a asp-area="" asp-controller="MeetUp" asp-action="Index" class="nav-link px-2 link-body-emphasis">MeetUps</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="User" asp-action="Index" class="nav-link px-2 link-body-emphasis">More Developers</a></li>
+                    }
+                    </ul>
+
+                    @*<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                    </form>*@
+
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="data:image/jpeg;base64,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" alt="mdo" width="32" height="32" class="rounded-circle">
+                        </a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <ul class="dropdown-menu text-small">
+                            <li><a asp-action="Profile" asp-controller="User" class="dropdown-item">Profile</a></li>
+                        
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a asp-action="Index" asp-controller="Dashboard" asp-area="" class="dropdown-item">Dashboard</a></li>
+                            <li><a asp-action="Logout" asp-controller="Account" asp-area=""  class="dropdown-item btn-outline-danger">Logout</a></li>
+
+                        </ul>
+                        }
+                        else
+                        {
+                            
+                        <ul class="dropdown-menu text-small">
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a asp-action="Login" asp-controller="Account" asp-area="" class="dropdown-item">Login-In</a></li>
+                            <li><a asp-action="Register" asp-controller="Account" asp-area="" class="dropdown-item">Register</a></li>
+                        </ul>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - ProgrammingDevHub - <a asp-area="" asp-controller="Home" asp-action="Index" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <i class='fas fa-code' style='font-size: 20px'></i></a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

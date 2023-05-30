@@ -1,0 +1,391 @@
+﻿@using ProgrammingDevHub.ViewModel
+@model List<UserViewModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.1.2/tailwind.min.css">
+    <title>Your Page Title</title>
+    <!-- Include CSS and other dependencies here -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Add any additional custom styles here */
+        .bg-gray-100 {
+            background-color: #F3F4F6;
+        }
+
+        .text-2xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            flex-direction: column;
+        }
+
+        .-my-2 {
+            margin-top: -0.5rem;
+            margin-bottom: -0.5rem;
+        }
+
+        .overflow-x-auto {
+            overflow-x: auto;
+        }
+
+        .sm\:px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .lg\:px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .align-middle {
+            vertical-align: middle;
+        }
+
+        .min-w-full {
+            min-width: 100%;
+        }
+
+        .shadow {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .border-b {
+            border-bottom-width: 1px;
+        }
+
+        .border-gray-200 {
+            border-color: #EDF2F7;
+        }
+
+        .sm\:rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        .table {
+            display: table;
+        }
+
+        .min-w-full {
+            min-width: 100%;
+        }
+
+        .divide-y {
+            border-collapse: separate;
+            border-spacing: 0 1px;
+        }
+
+        .divide-gray-200 > tr > th,
+        .divide-gray-200 > tr > td {
+            border-color: #EDF2F7;
+        }
+
+        .bg-white {
+            background-color: #FFFFFF;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .leading-4 {
+            line-height: 1.25rem;
+        }
+
+        .font-medium {
+            font-weight: 500;
+        }
+
+        .text-gray-500 {
+            color: #6B7280;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .tracking-wider {
+            letter-spacing: 0.05em;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .bg-gray-50 {
+            background-color: #F9FAFB;
+        }
+
+        .whitespace-no-wrap {
+            white-space: nowrap;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .leading-5 {
+            line-height: 1.25rem;
+        }
+
+        .text-gray-900 {
+            color: #111827;
+        }
+
+        .ml-4 {
+            margin-left: 1rem;
+        }
+
+        .h-10 {
+            height: 2.5rem;
+        }
+
+        .w-10 {
+            width: 2.5rem;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .text-green-800 {
+            color: #047857;
+        }
+
+        .px-2 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .inline-flex {
+            display: inline-flex;
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        .bg-green-100 {
+            background-color: #D1FAE5;
+        }
+
+        .whitespace-no-wrap {
+            white-space: nowrap;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .text-gray-500 {
+            color: #6B7280;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+
+        .leading-5 {
+            line-height: 1.25rem;
+        }
+        .anchor {
+            cursor: pointer;
+            background: grey;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="mx-auto p-4">
+        <h1 class="text-2xl mb-8">Users</h1>
+        <div class="flex flex-col" data-aos="fade-up">
+            <div class="-my-2 overflow-x-auto sm:-mx-12 lg:-mx-12">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-8 lg:px-12">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <div class="mt-8 bg-white overflow-hidden shadow sm:rounded-lg">
+                            <div class="flex items-center py-4 px-6">
+                                <input type="text" id="SearchInput" placeholder="Search" class="py-2 px-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                <button onclick="searchUser()" class="px-4 py-2 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg">Search</button>
+                            </div>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Email
+                                    </th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        GitHub Name
+                                    </th>
+                                    <th class="hidden px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Gender
+                                    </th>
+                                    <th class="hidden px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        CountryCode
+                                    </th>
+                                    <th class="hidden px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Phone
+                                    </th>
+                                    <th class="hidden px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Country
+                                    </th>
+                                    <th class="hidden px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Postal Code
+                                    </th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        State
+                                    </th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Years Of Experience
+                                    </th>
+                                    <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                        Level of Programming
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                   
+                                @foreach (var item in Model)
+                                {
+                                        <tr>
+                                        <td class="px-6 py-4 whitespace-no-wrap hidden">
+                                            <div class="flex items-center">
+                                                <div class="ml-4">
+                                                    <div  class="text-sm leading-5 font-medium text-gray-900">@item?.Id</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.UserName</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.GitHubName</div>
+                                        </td>
+                                        <td class="hidden px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.Gender</div>
+                                        </td>
+                                        <td class="hidden px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.CountryCode</div>
+                                        </td>
+                                            <td class="hidden px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.PhoneNumber</div>
+                                        </td>
+
+                                        <td class="hidden px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.Country</div>
+                                        </td>
+                                        <td class="hidden px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.PostalCode</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.State</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.YOExperience</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-no-wrap">
+                                            <div class="text-sm leading-5 text-gray-900">@item?.LevelOProgramming</div>
+                                        </td>
+                                        
+                                        <td class="px-6 py-4 whitespace-no-wrap">
+                                            <a asp-controller="User" asp-action="Detail" asp-route-Id="@item.Id" type="submit" class="px-4 py-2 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg btn btn-md">View</a>
+                                        </td>
+
+                                    </tr>
+
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Include JS and other dependencies here -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+                function searchUser() {
+                    // Get the search input value
+                    var searchValue = document.getElementById("SearchInput").value.toLowerCase();
+
+                    // Get all table rows in the tbody
+                    var tableRows = document.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+                    // Loop through each row
+                    for (var i = 0; i < tableRows.length; i++) {
+                        var row = tableRows[i];
+                        var found = false;
+
+                        // Loop through each cell in the row (except the first hidden cell)
+                        for (var j = 1; j < row.cells.length; j++) {
+                            var cell = row.cells[j];
+                            var cellValue = cell.innerText.toLowerCase();
+
+                            // Check if the cell value contains the search input value
+                            if (cellValue.includes(searchValue)) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        // Show or hide the row based on the search result
+                        if (found) {
+                            row.style.display = "";
+                        } else {
+                            row.style.display = "none";
+                        }
+                    }
+                }
+    </script>
+</body>
+</html>

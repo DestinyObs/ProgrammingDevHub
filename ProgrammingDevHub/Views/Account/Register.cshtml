@@ -1,0 +1,401 @@
+﻿@using ProgrammingDevHub.Data.Enums 
+@using ProgrammingDevHub.ViewModel
+@model RegisterViewModel
+
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<style>
+    label {
+        font-weight: 600;
+        color: #666;
+    }
+
+    .box8 {
+        box-shadow: 0px 0px 5px 1px #999;
+    }
+
+
+</style>
+
+@*<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-7 col-lg-5">
+					<div class="wrap">
+						<div class="img" style="background-image: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUVFRgSEhUYGBgYGBgYEhoYGBgYGBgaGBgaGRgZGBgcIy4lHB4rIRgYJjgmKy8xNTU1GiQ9QDszPy40NTEBDAwMEA8QHhISHjQsJCw0NDQ0NDQ0NDQ0NDQ0NDQ0NjQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NP/AABEIASwAqAMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAADAAECBAUGBwj/xAA3EAACAQMCBQMDAwMDAwUAAAABAhEAAyESMQQFE0FRImFxBjKBkaGxQsHwByPhM2LRFBVDUnL/xAAZAQADAQEBAAAAAAAAAAAAAAAAAQIDBAX/xAAnEQACAgICAgIBBAMAAAAAAAAAAQIRAxITIQQxQVEyImGBoSMzcf/aAAwDAQACEQMRAD8A9HpULqUtdZHp6sLNNNC102ugNQ1NNC103UoHqwxamJoOqlqoHqFmm1UPVTTQOgk0poc000BQTVS1UOaaaAoJqqM1ClNFjomKcGoTSLUmFBJqJNQL1EvSHqEmlQC9KgdBZpTQppTT7HQWlNCmn1UCoJNKaHqpaqQUEmm10OaagdBNVNqoZNNNMeoTXS10OmmgKCa6bXQ5pTRQahNdLVQpp5oodBNVMXqGqm1UUFEy9RLVGaU0DoctSqFKmOguqlqqj16XXp6srRl7VS1VR69Lr0ahoXupS6lUutS61GotC7qptVU+tS61Go9WWy9LXVTrU3Wp0GrLeqlqrO4jiSCkHdwGx20sf5AovWo1BRLmqm1VU61LrUahqy1qpaqqdam61Go9WWy9MXqr1qY3qNQ1LWqkXqp1aXVp6j0LeqlVPq0qNQ0KPXpdesrrU/Wrp4jq1RqdenF+srrUhfo4hao1evT9esrr0uvRxBqjV6/vS69ZfXpdejjDVGp16br1l9al16OMNUWOP4ohrMGJvAHbI6dzH6x+lW+vXLcz5vaVgLiXCVOpSgVgGlQGEsDjURkRJ3M1pWOK1KGgrOYaNQHaYxNRGNtowx5Iym4r4Nfr0uvWZ16br1pxm+qNTr0uvWZ1qbrUcYao0+vTdaszrUutRxhSNPrUutWZ1qfrUcY6Ro9alWb1qVHGKkUepS6lB1UtVd2pnyIN1KXUoM000aC5EH6lP1arzSmloHIg/VpdWgTS1UaByIsdWl1Kr6qfVRoHIjnuc8vum4WQMyu4AjbW3q0gxjcT+Jrd5YhS0ikkmJMmT6jqgnvExVvhuXrdKMSP+oVGG1f9Ny0N9oxpydo98V1wI8Y2jbG3auXCk8sl9HJhjGORyQfqUurQJpTXXodXIG6lLqUGaaaNA5A/UpupQZpaqNA5UG6lLqUCaU09A5Q/UpUCaVLQOUVPUepSV63o4eQlSmm6lRa7SoNyc0qF16kLlFINyVKm1U80UG4qeajNSRSftBPwJooe5pcFduhbQQnT1iYIGmem4y2+n+/sIrPug6m1TMmdW8zmfetrgeIRLdpWJDdVm0kGPsuAFv8At9qxeNca3ifvaJ3jUYmvN8b/AHzFddkKVQD1INXpUG49Kp20LHSoJPgUe7wNxRJQ/ggn9BRSDcq0qtWOW3XEgBf/ANGP4pDl1wOtth9x3GRHc0uhblSlXacHwVpFwgPuQCT7kmqXN+XoUNy2oVlyQBAYd8DvUqSbonk7OYpUzsBT1dFblPq03WqrqoTvQ5HLsy03E0G5xVUXc+aEzVk5EObL44r3qzb4isSas2nojIFNm9aaf70c6feszhr+DRGvVspKjVSNLgLPUupamNZ38AAkn9Aa9M4G3btKEtqFA8bn3J7mvIuC5n0rtu4dlbPwQVP816PY40OoZGBU5BGxrmzW/wDgnKyp9QW0e4hY73QVXYNFthDHsCZHbb9eK546pecKTBMiTMyTJnuJmMn5NdXzTmIDJb1AevU5YMNI0EHSQMmNP5G9cV9XXNXESG1AopBiJlnJJHyTtjaMV53iyksz/k0yNqCBJxVWrd+sS2au23r1YyMYzZ1/J2Cpq7sTJ9gYArU5feDXM9gSPnb+9cly3mAUdNzA3U9s7g1d/wDcVtkXNS49xkHtitKTRW1o6Xnd0I4K41CT8jc1Us8cqw77Dv4nE/vWFxPP7d5tTNpAEKGwY9/es7j+boV0WzPk+aSUUu2TsqO0PFgEgGqfMOZBEYk7ghfckRXBpzK6n2uQPBg/pNVL/HO7S7lv0/YDaocool5EbyuzsEQFmOFCiST7ClXef6PctQ234lgC86VJ/pHtSrnyeTrKkhSyuzy4PUXapJYZvtE1G7aZfuEVv3QOwRFRIooptNIKAMtJTRylQKUgomtwjIqbcUfFCimp2xjGSZNH4bi7if8ATd0HfSxA/Sook1NkxU0Kjt04ZmSwXUvq0hSQTpbpA+ozg6tRJx2B9+Y+qrRW8paSSmScyQ7zJ/qIBAJ9u21dW/E6FQAABbhFzJ9RCFWOkfZqnBzhliua+r31MjaQJa5sdQaBb9QeAG98YIYGd68zx75W2dGX8EYa0ZHqn1IphcNeomctmkHoLmgI5qZNU2O7IvTgVA1NTUoRBxVcjNWyKF06TQNHo3+lX1KnDl+HvNpViCrHZTtB8D3pq4jgsGlWcsCk7K0vs6XlnBBrasvvPzVbm3C6bbFu0R8zisPl31I9mdBwd1YSp/FQ5lzp7+bhEDZQIA/5rp5VVFOaa6BB6nbasxr9MvFEbVlsQppGw0VWZ6ovxhNDN80tglkXwaDPUNeapdal1aWxGxs2WoywWVTsWUGN8kDEVhLxRGxrT5JdL8RaEjDqxkwIQ6zJ+FNEppRbLjJPo7/mnFIhTXpLBpJUqwC67YUek4zpwfBPeBh/WYUqhDKWVyp0srBZB1L6SQIKiAYaDmdzb5qokWwwACTb14bM6QwWdQIXvn7piAKj9VcMvRkEsFKsG+37To0gZmDcMzB2jER52FJTTOrJ+Bw7VCae9VfXXot0cTZeQ0aqKX6R4j3pqRWyLRNOr1SN6pLdo2FsXwaYms436Il0nvT2FsX1uxSqgXp6ew9mVGWKS705YzsaRE5/81laMh7qAUOr6cKrJq1rMH0+kEAb4JBJysQMgmPtNVCw2Ix+BSsGSFn065ETEd8+1Ss2QZJMCgiN852/zFJd959qeyGmiWik1r3FWbt22V0orKZ9RZwwMTjCiN/2qqPx/FFoboYrWpyC3c6qvZ1akOuVCsRGB6WIBkkDPmqSruNsT6oAgZIjuT2+K1OS2pV2LMB6VAUkatQYEkgHKyDB8mom0osuEbkkdAvDcTxDDiL3E3BcMhtCKVRRMlSHAOxwo7TstB5rbvPbNsXWdgo1p0USFQsIZ9RMgoDG2fMA8jcuszTqMDC79tq0CxZcuSdI3GMhgw0x4bcdsz45kqpmylaaMl57mo0fo7icgwZxGaEREjFdRztEaWk0S55wfJG0/NJ4EERPjG3bA/P7UyWQKEVHSaOz6shVER7D96hdOdu0nY/pHah0JpAopyDU2AmMT5BBH69qiD4Pz2pWhDCfelUwwOAInAyaemBPqA9tlAEQox3IAzjvvJmmVmPoEwThZhZ2zOPzUEYRvBFHAODqzE41AiNpJH8eKhMpIrurAlTMgwRvkSO3vNFspMiYx7d6jdbIJJM5YnJzuc7nehs28bdpwY+P0pbJPsFSfYTibDWm0tvCsRvEiQD+I/WoLeIIYAY9pG0ZB3oYuUQXv8/Spv8AcOiPVP8AnttU2uAkemBiYz8kUawUOTmCvpkgsCYYAgb1ULmntXyDr7NTgbYcm2oYu7qtskgLmR6pEzkbHzvXa8j5UV4QOwAJNxztBIGhW94gYJG5MVyHI7hkenU2pQoJiSTgT/m9emc0tInBsBgaFAPbOxAiSPTtPb9cPIm0opfLO3x4R/JnlXHqS+dwFVoHcAAk/Jmus+k+EFy0AygjU6bdioOSD3yMkbd6x7t3WoS2ss9u2IAli/UY4jc5Aro/om5oe4rwul1lQCsFgVb0spP9AMQDjfMVWZtY3Q8cUp39guI5bYYuXOi7dNt8nYZ6npUxJZW7x71yvM+FQXGFpgywkHMElFLCYE+osNu1dN9dcEZ1SZFxlwCdSsFafOGkfxWELdpUIRy/qJk2ShEqRp1FiIgAx5nxVYZbRTIyU5a0bfIfohrqaripBKsHF4zpKq2gJpgkgxOoRJOYAOJ9QfTtzh21MqqjGE03NY2MDUQCcA5rrPpqLqJZQpbbQx1naAiEyJALen96r89CuUColtQHYSIVivULBcZLMCPk0o7qbt9FvDBxr5OG4a2ikm4uoDsrAE/nIFT6lgkf7bj7v/kUAkxpklMARnzPatG7wPpZtaHShdhq9UAIcCPN1R7m23jOF1/+0fvWjaOOUVHoI2gbqTvs6kd42HbHz+cCZgQMGf6jO+fHbFRtKWYLIEkCSYAkxJPir97lbouoshGlWw0mGt27gxG8XVHyGHakpIimymWKkgHcQY2OxpUy/j/P8FKnaDUEfakGNFssAZZdQzIkjcRII2I3G4kCQRin4i6XYs0Sd4AUYEbAADaoSEBJmo1ZdQfUFKiBG5BOxMnbYnvUQJiTEAxj5IGN5OJ96KbHQGlUylEFrBOMEDcTmTIG5GN/ceaVMKYMNBBGCNjUYp9MVas8G7EBVJmYxvG+fAqkhqLZtcm4UBUfU2pg7qAgIBtBjP3jVGknbxXQ815s3E27dgM5Ll2b0KANHpXcjaDue+81zvA2bq2ZF11UkqEDGApB1MR2HqOw9/E5j3XYn1tE4ltomc/ms3G3b+DrjJxilR0PC8mY6GRyrFyshrLFdJQTCmQNT/v7E0uGFyzdU9Zg7llmLbKSApB9LEE+oYI71zQSI9ZgbR2nePBwKJYtN/Q5xJAGM+d4BwKp9qhKVV1/Z3vPeJS6qNqebvo1OmoltcBk9SjB0mfeO0Vy3FcrdGKhiQXZREsGZYDYByRqAPzT8os3LjALdJ30CDDNjBPb7f3+YuWeJuo/26QTg6WBIkHSxkTiRjfNPElH9Jr1Ltofh+Gv2lVwjjbSSAoMeJMiCFqnzPm7BVAPryGBklQw9UGYAOptvJrrOfcU/StoGCRa6j/cfU7QoMkwICn815zxthwZMsCSqvkqxWAdLHfcfqKsjLJxVIqXGJJk1ECaM9gqYaQYUgY2Yagd/BB/NWbHDK0A6pIMGAFEEeoknIA1TtkDNRVnFTM+nJMf5/nai3XLQDso0jAECSe3yaIeHUAy3qABAAkNIBgMDgwfHak0FMCxwInb23k7eaVScL2n38Y7g+DntjG9KlQiV64DkKFxkDafIHb4+YgYo4CPhFCkaj9xMiPTljvMzt2xVU2TmCCF3IP8eanYYr6tIYArMiRvqA8idJ2IMTT7spPvst2YUFXVWlYSWwknLQD4LfBM9oM+FCKwdlVxBIQtAkHEnx7d6o651HSvqOMkacz6RMRmMzTWr5UmIyGUyAcMIMTt8jNNyRakvo0LaA6SemsHIkeoHPqzJ8UbjrisdKm2J0lgoUJqiJUgCBk4+axrdyDMA/Mx+1SZmBKnB2YH2Ox8ZFGyGsir0b7WLLEMzIDpAhAxURpGowfuiSTgGO5JrW+nE/3Olw9yS6sjArAKEjUYMjb8gmuV4AevQ8DcHUSoHmT22r0L6URLCde4VUuSywAFVFGSq5OxJggEmN5qcs6i69nTjqXaRD6vsJZQKqmT6bcr6VGldR9zncfHeuU4BEcwzsFT1KFVmgLkudPjeZ711fM+IscTcd7lzpobZWwzI7KdTFTcGrZjowTvpMZyMbirPD27gbhbkKRB1uX1AESHAQBVburAiO52pYU9Vt7Kk1KV10X+B5TwpFy7cDOqCGLK6HqPIVQpzqJGrIMBTO1BfkejiDaVglxSmlS+knXBABncgzAq4vE8GVZ7l/1EsyorMUFzQSLmffSpBBMDtJFU+ac+N+9bvSgdBGpGhi+yuTElgQp94it0CkvpGhyvhRavNbZASGLaihbW6r/uKpIJIVh/Sd+24rc5rwIAZbcIG1XAS2jSVXRcIH9IOoSPAb2rkbXNQnTD3FYWi74Il9bEuH3yQ7jfcL+Owv8AOEFu2VUsAoe2UVTjTISXG26mCRBPiK4cqlHIpI0Uk40ec8dzEsWtqSsgIV059J2MiQZ+Ka3x1kILbqBGGZNYLgsrksSxAMoIhY2MGKlz3iCt43LasmtBq1CDDj7o7atvwfNYVy4IIIBkgz/UMERO0Z/YV1qVqzmnP39myzcMG12TBMlRcJfRkQTCAMRuMfM7VUt201Al0YLkKeoV8wYXz2Eb1W4F/UrKuUhnJODDiCQRAGQNj8VcYoFfrrLltQdH0k6oMRBUrknAByMwIp2TGVq6RHiraM2vXaWZYqBcCjuRle52oPMwpYaen9qhikhSRImCMSACe0nEDFA4pDCtCwwgQZnSACSCZBMg+JJjaBVuXCTJjtsABgRsMVLdGcpr1RYuMCAsKNIIkYLeNXYkeaVQtOBIIDSDEkgAkETiMg58Y70qOiLQSzxJSACMNrGAYYDEzv8AFVIHt+tMzk71Gk5WS2EBIBg4OD75mD+k/imUiM7yM+Bmcfp+lSKjTM+rVGmO0bz84ioBCe1T3YCYDtVnh+HLOq49RH9QGCe5E6ce2PFRst3aT6SqyAYkQN+wn8GKjcsMoBYEA/bIiR5FNJjS+SxbtMrjShJmdJUtgHuIyK37/wBRO9hbOjSR91yQupR/SojcwMz4xiuUDHz8VZsI74GpgATuYHvT1Un2awm11E7L6e4xnVLd460QMttCiFDEMEkjMEBiZJg+Dlub8DbWenBJUYXYAgMJIO8Edu9c8/ErbZmtoVU/YHCvBAGfUIMkTtis/wD9Q3mJ9oFaJ6mqyKKpm4OXsSYTAjMxEjHxMVPh+WuCAEYMT6RBBYzAjv3rCRyTv+1W1lUa7DZIW2ytphplie5xI7b07BTXujQ5zzGG9CyinSnURA8qBr1afuEnv5q7b521hlS1cS6ij0oQNGrIxsYgnO+3zXMccXn/AHJJiSS2oknuT3P/AIqHB39OrBLFYRgzKVJ3IjeVlYP/ANqykr6ZHK0y/wAd1HJuhQsgSqkmcZaPfvVVOHZ5wQyDVc1MBjUqjSsAyC2wnz2NVus326m+JP6RVr0FQLSuX0k3C2kgfcDpHuCMnIIxTRm5KTszyO1SdCDDAg+CIORioUZHIVgGjUQGWNwM5PsQKlmZFsn0ggbxMx+amrpoYMpLErobVAUCdQKxmZHxHvUVXME6cbwfFCIpv9gJED/DSpyBA85n+1NR/AiE0V3LGTQamjRWcX2Ug2giCe1PcuAmQPmo3L00CtG69Dbr0GLTU799mADGQohfaq4NFGaadguxW1kwK6Xhbei0QNzuazeX8LmTWteaFgVrFUrOnFHVWyrfshlAYjFAbhUOBAqtfvmTQrdxpp2hylFv0XF5cs71HjZACKfSMge/mpBzFUr9wzSbRMqS6AXrhn1VC1cIMiouZNRU5rFy/Uc7fYXWQZ7n+9TtOV9Q/mhsZrpfpv6bF8a7rlFOFCgam984Aq4pt0ioxbdI5h3kzTT3rs/qL6LWynVs3C6j71aNS+8jBFce1qDBqXGSCWKUfyRGSTNJaRFQmk+iPQZhSoYNKrTVCbIxTgU6rRVSs4xGotgTTUdrZoLLFEkDi0F4Xh2uMEQEscACuv4T6LaAWvIreApYfrj+KzPpCA7H+rSNPxOf7V2icQa68GBSjszbFBNWcnxvB3OGbTcAz9rDKt8Hz7VSfiq6P6rvg2DO+tdHz3/aa4cNNLItZUXKWross01t8m+n3vDXIRDsWkk/AHb3rnkORO3evRrN2ANOwAj47U8UVKysa2fZj8z+nbltS6srgCWCghh7wd65LijmvSm4k15xzKOo+nbU0frSzQ1SDNFJFA04FSC0a3brnjCzkSIKtdlyDjwEUAwVERXLNboZuFdiR8YreD0ZtCWjs7jm/NItsCfuBAHma4XiHk1F75O5n5oU5rPJk2ZWbPuqRKoEUQGmas2rMGgdKlSpUQaXFcsuWxLAEeQZH58UuFtzXY9IMNJEg4I8zWHwXC6WInYkfoSK6Z49H0d6wVLoF/6TG1UOK4aK6Z7BAmKxOPeKzki8mNRXZm8Nfa2wZTBH6HyD7V0KfVCx6rZ1exEfvXMu1DmlHLKHUWcmzj6NHmnM2vsC2APtA7e58mqttKCDR7L1Dk5O2EXbtl23Yrb4DmrW1COupR9pH3AePesuxcFWUtu/2IzedIJ/itoSa9HVFJeg/MOekqVtqVndjuPgCuZuCtLi7bKYZSp8EEH96zbtKcpP8jLK2/YIGiJcqvNKazWSjlssvdoTNQ5pUnksG2yYFLTSWpmj2UkmiJFRNOaQFJi9kSKVSIpUhUdre5wiYRgzEemNh7k1V4A9zXLpcitHhuP0710vJs7Z34vIT/I6XieJGk1zHMrs5ovEcdqFZl+5NTOSonyMyl6AE01KlXMcI9SDVGnAqkmwTo0OXAu6pP3EA/Hf9q9A4YhQEUQo2Arz/l9zQ6uN1IPz5Fencu4C5dQXbdt2TyFMj2I3rvwKKi7OrFk67M7mnDC6hUjMEoe4PavPLymvROb8wS0jAn1kEKvedpI7AVynKuFW9eS2diZb4GTSywUmkh5JJmVwnKL93Nq0zDyBj9aDxXBXLZ03EZT4Iivd+E4ZUQKoAAAwKr83+mzxltkRNTj7GwAD7k9q55Yo/Zk4KvZ4XbssxhVLHwASf2pXLLKYZSp8EEfzXu1j6PbhECpb9IHqcQxJ7loMis/mXJ0voUdRkekxlT2INVHx4yVqRmor7PHuGsajXR8r5OH3GBvjeszh00OUbdWIP4MGux5JdWCvfBqJR1R6HhYoSf6iq30ujYVQB3OZqrxX0sqROqD9uc/mu14NxBHcZNVefXFhV7zNcscknOq6O+fj4vdI825jyzQfTkdvf/mlW3zgjSB3mlXTqeZlxRUujjxSNOKY1mn0cbRE01OKlS9ioHT1J6YUJdiGAqQpUq0XQUeif6VckS/ce/dAZbWkIp2LtJk+YA/evY1uhcDA9sV5F/pBeOriLc+mEb8yR/FepG381q3aQHmf+q3KUtlOLtgL1GKXANi0Ehv2NcBy3mBtXVuDOk59x3r0P/WByLdlBsXYn5AEfya8qoeRxaHbPbeT87tXlUo6zgQSAfzXp9jRaQKCIA7RJPc/mvkRGNfQf0Lfa5wdlnMnTH4G1S/8vfocpWj0JHDCRkV5z9a8Za4NnZiAIDIvck9gPmuuX0/aSPg182fV3HXL3FXXusWOogSSYA2A8CjEtG2SnXZnX+JLMzndmLH5Jmj8NzR0yGII2rONNUSyNsuOSUHaZ0K/VF5cqRPmP7Uj9SsfuXUfM/8AFc/SoUjR+TlfyX+L5k7kk4/ztSrPpUbGTnJu2z//2Q==);"></div>
+						<div class="login-wrap p-4 p-md-5">
+							<div class="d-flex">
+								<div class="w-100">
+									<h3 class="mb-4">Register</h3>
+								</div>
+
+								<div class="w-100">
+									<p class="social-media d-flex justify-content-end">
+										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
+										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
+									</p>
+								</div>
+							</div>
+							<form  asp-action="Register" class="signin-form">
+                                    @if (TempData["Error"] != null)
+                                    {
+                                        <div class="col-md-12 alert alert-danger">
+                                        <span><b>Sorry!</b> - @TempData["Error"]</span>
+                                        </div>
+                                    }
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+								<div  class="form-group mt-3">
+									<input asp-for="Email" type="text" class="form-control" style="">
+									<label asp-for="Email" class="form-control-placeholder">Username</label>
+						            <span asp-validation-for="Email" class="text-danger"></span>
+								</div>
+                                <div class="form-group">
+									<input asp-for="Password" id="password-field" type="password" class="form-control" style="">
+									<label asp-for="Password" class="form-control-placeholder">Password</label>
+						            <span asp-validation-for="Password" class="text-danger"></span>
+								</div>
+                                <div class="form-group">
+									<input asp-for="ConfirmPassword" id="password-field" type="password" class="form-control" style="">
+									<label asp-for="ConfirmPassword" class="form-control-placeholder"> Confirm Password </label>
+						            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="form-control btn btn-primary rounded submit px-3">Register</button>
+								</div>
+							</form>
+
+							<p class="text-center">Already a member? &nbsp; <a asp-action="Login" asp-controller="Account" data-toggle="tab">Login</a></p>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>*@
+<div class="container mt-3">
+    <form asp-action="Register" class="signin-form">
+        @if (TempData["Error"] != null)
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"]</span>
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row jumbotron box8">
+            <div class="col-sm-12 mx-t3 mb-4">
+                <h2 class="text-center text-info">Register</h2>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="Email">Email</label>
+                <input type="email" class="form-control" asp-for="Email" name="email" id="email" placeholder="Enter your email." required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="GitHubName">GitHub Handle</label>
+                <input asp-for="GitHubName" type="text" class="form-control" id="name-l" placeholder="Enter your GitHub." required>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label asp-for="State">State</label>
+                <input asp-for="State" type="address" class="form-control" id="State" placeholder="Enter your state." style="">
+                <span asp-validation-for="State" class="text-danger"></span>
+
+            </div>
+            <div class="col-sm-2 form-group">
+                <label asp-for="PostalCode">Postal-Code</label>
+                <input asp-for="PostalCode" class="form-control" id="zip" placeholder="Postal-Code." style="">
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="Country">Country</label>
+                <input asp-for="Country" class="form-control" id="zip" placeholder="Country" style="">
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="LevelOProgramming">Level Of Programming</label>
+                <select asp-for="LevelOProgramming" class="form-control custom-select browser-default">
+                    <option>---Select---</option>
+                    <option value="Senior_Developer">Senior_Developer</option>
+                    <option value="Middle_Developer">Middle_Developer</option>
+                    <option value="Junior_Developer">Junior_Developer</option>
+                    <option value="Trainee_Developer">Trainee_Developer</option>
+                 </select>
+                <span asp-validation-for="LevelOProgramming" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="YOExperience">Years of Experience</label>
+                <input  asp-for="YOExperience" class="form-control" id="Date" placeholder="" style="">
+                <span asp-validation-for="YOExperience" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="Gender">Gender</label>
+                <select asp-for="Gender" id="sex" class="form-control browser-default custom-select">
+                    <option>---Select---</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="unspesified">Unspecified</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+
+            </div>
+            <div class="col-sm-2 form-group">
+                <label asp-for="CountryCode">Country code</label>
+                <select asp-for="CountryCode" class="form-control browser-default custom-select">
+                    <option data-countryCode="US" value="1" selected>USA (+1)</option>
+                    <option data-countryCode="GB" value="44">UK (+44)</option>
+
+                    <option disabled="disabled">Other Countries</option>
+                    <option data-countryCode="DZ" value="213">Algeria (+213)</option>
+                    <option data-countryCode="AD" value="376">Andorra (+376)</option>
+                    <option data-countryCode="AO" value="244">Angola (+244)</option>
+                    <option data-countryCode="AI" value="1264">Anguilla (+1264)</option>
+                    <option data-countryCode="AG" value="1268">Antigua &amp; Barbuda (+1268)</option>
+                    <option data-countryCode="AR" value="54">Argentina (+54)</option>
+                    <option data-countryCode="AM" value="374">Armenia (+374)</option>
+                    <option data-countryCode="AW" value="297">Aruba (+297)</option>
+                    <option data-countryCode="AU" value="61">Australia (+61)</option>
+                    <option data-countryCode="AT" value="43">Austria (+43)</option>
+                    <option data-countryCode="AZ" value="994">Azerbaijan (+994)</option>
+                    <option data-countryCode="BS" value="1242">Bahamas (+1242)</option>
+                    <option data-countryCode="BH" value="973">Bahrain (+973)</option>
+                    <option data-countryCode="BD" value="880">Bangladesh (+880)</option>
+                    <option data-countryCode="BB" value="1246">Barbados (+1246)</option>
+                    <option data-countryCode="BY" value="375">Belarus (+375)</option>
+                    <option data-countryCode="BE" value="32">Belgium (+32)</option>
+                    <option data-countryCode="BZ" value="501">Belize (+501)</option>
+                    <option data-countryCode="BJ" value="229">Benin (+229)</option>
+                    <option data-countryCode="BM" value="1441">Bermuda (+1441)</option>
+                    <option data-countryCode="BT" value="975">Bhutan (+975)</option>
+                    <option data-countryCode="BO" value="591">Bolivia (+591)</option>
+                    <option data-countryCode="BA" value="387">Bosnia Herzegovina (+387)</option>
+                    <option data-countryCode="BW" value="267">Botswana (+267)</option>
+                    <option data-countryCode="BR" value="55">Brazil (+55)</option>
+                    <option data-countryCode="BN" value="673">Brunei (+673)</option>
+                    <option data-countryCode="BG" value="359">Bulgaria (+359)</option>
+                    <option data-countryCode="BF" value="226">Burkina Faso (+226)</option>
+                    <option data-countryCode="BI" value="257">Burundi (+257)</option>
+                    <option data-countryCode="KH" value="855">Cambodia (+855)</option>
+                    <option data-countryCode="CM" value="237">Cameroon (+237)</option>
+                    <option data-countryCode="CA" value="1">Canada (+1)</option>
+                    <option data-countryCode="CV" value="238">Cape Verde Islands (+238)</option>
+                    <option data-countryCode="KY" value="1345">Cayman Islands (+1345)</option>
+                    <option data-countryCode="CF" value="236">Central African Republic (+236)</option>
+                    <option data-countryCode="CL" value="56">Chile (+56)</option>
+                    <option data-countryCode="CN" value="86">China (+86)</option>
+                    <option data-countryCode="CO" value="57">Colombia (+57)</option>
+                    <option data-countryCode="KM" value="269">Comoros (+269)</option>
+                    <option data-countryCode="CG" value="242">Congo (+242)</option>
+                    <option data-countryCode="CK" value="682">Cook Islands (+682)</option>
+                    <option data-countryCode="CR" value="506">Costa Rica (+506)</option>
+                    <option data-countryCode="HR" value="385">Croatia (+385)</option>
+                    <option data-countryCode="CU" value="53">Cuba (+53)</option>
+                    <option data-countryCode="CY" value="90">Cyprus - North (+90)</option>
+                    <option data-countryCode="CY" value="357">Cyprus - South (+357)</option>
+                    <option data-countryCode="CZ" value="420">Czech Republic (+420)</option>
+                    <option data-countryCode="DK" value="45">Denmark (+45)</option>
+                    <option data-countryCode="DJ" value="253">Djibouti (+253)</option>
+                    <option data-countryCode="DM" value="1809">Dominica (+1809)</option>
+                    <option data-countryCode="DO" value="1809">Dominican Republic (+1809)</option>
+                    <option data-countryCode="EC" value="593">Ecuador (+593)</option>
+                    <option data-countryCode="EG" value="20">Egypt (+20)</option>
+                    <option data-countryCode="SV" value="503">El Salvador (+503)</option>
+                    <option data-countryCode="GQ" value="240">Equatorial Guinea (+240)</option>
+                    <option data-countryCode="ER" value="291">Eritrea (+291)</option>
+                    <option data-countryCode="EE" value="372">Estonia (+372)</option>
+                    <option data-countryCode="ET" value="251">Ethiopia (+251)</option>
+                    <option data-countryCode="FK" value="500">Falkland Islands (+500)</option>
+                    <option data-countryCode="FO" value="298">Faroe Islands (+298)</option>
+                    <option data-countryCode="FJ" value="679">Fiji (+679)</option>
+                    <option data-countryCode="FI" value="358">Finland (+358)</option>
+                    <option data-countryCode="FR" value="33">France (+33)</option>
+                    <option data-countryCode="GF" value="594">French Guiana (+594)</option>
+                    <option data-countryCode="PF" value="689">French Polynesia (+689)</option>
+                    <option data-countryCode="GA" value="241">Gabon (+241)</option>
+                    <option data-countryCode="GM" value="220">Gambia (+220)</option>
+                    <option data-countryCode="GE" value="7880">Georgia (+7880)</option>
+                    <option data-countryCode="DE" value="49">Germany (+49)</option>
+                    <option data-countryCode="GH" value="233">Ghana (+233)</option>
+                    <option data-countryCode="GI" value="350">Gibraltar (+350)</option>
+                    <option data-countryCode="GR" value="30">Greece (+30)</option>
+                    <option data-countryCode="GL" value="299">Greenland (+299)</option>
+                    <option data-countryCode="GD" value="1473">Grenada (+1473)</option>
+                    <option data-countryCode="GP" value="590">Guadeloupe (+590)</option>
+                    <option data-countryCode="GU" value="671">Guam (+671)</option>
+                    <option data-countryCode="GT" value="502">Guatemala (+502)</option>
+                    <option data-countryCode="GN" value="224">Guinea (+224)</option>
+                    <option data-countryCode="GW" value="245">Guinea - Bissau (+245)</option>
+                    <option data-countryCode="GY" value="592">Guyana (+592)</option>
+                    <option data-countryCode="HT" value="509">Haiti (+509)</option>
+                    <option data-countryCode="HN" value="504">Honduras (+504)</option>
+                    <option data-countryCode="HK" value="852">Hong Kong (+852)</option>
+                    <option data-countryCode="HU" value="36">Hungary (+36)</option>
+                    <option data-countryCode="IS" value="354">Iceland (+354)</option>
+                    <option data-countryCode="IN" value="91">India (+91)</option>
+                    <option data-countryCode="ID" value="62">Indonesia (+62)</option>
+                    <option data-countryCode="IQ" value="964">Iraq (+964)</option>
+                    <option data-countryCode="IR" value="98">Iran (+98)</option>
+                    <option data-countryCode="IE" value="353">Ireland (+353)</option>
+                    <option data-countryCode="IL" value="972">Israel (+972)</option>
+                    <option data-countryCode="IT" value="39">Italy (+39)</option>
+                    <option data-countryCode="JM" value="1876">Jamaica (+1876)</option>
+                    <option data-countryCode="JP" value="81">Japan (+81)</option>
+                    <option data-countryCode="JO" value="962">Jordan (+962)</option>
+                    <option data-countryCode="KZ" value="7">Kazakhstan (+7)</option>
+                    <option data-countryCode="KE" value="254">Kenya (+254)</option>
+                    <option data-countryCode="KI" value="686">Kiribati (+686)</option>
+                    <option data-countryCode="KP" value="850">Korea - North (+850)</option>
+                    <option data-countryCode="KR" value="82">Korea - South (+82)</option>
+                    <option data-countryCode="KW" value="965">Kuwait (+965)</option>
+                    <option data-countryCode="KG" value="996">Kyrgyzstan (+996)</option>
+                    <option data-countryCode="LA" value="856">Laos (+856)</option>
+                    <option data-countryCode="LV" value="371">Latvia (+371)</option>
+                    <option data-countryCode="LB" value="961">Lebanon (+961)</option>
+                    <option data-countryCode="LS" value="266">Lesotho (+266)</option>
+                    <option data-countryCode="LR" value="231">Liberia (+231)</option>
+                    <option data-countryCode="LY" value="218">Libya (+218)</option>
+                    <option data-countryCode="LI" value="417">Liechtenstein (+417)</option>
+                    <option data-countryCode="LT" value="370">Lithuania (+370)</option>
+                    <option data-countryCode="LU" value="352">Luxembourg (+352)</option>
+                    <option data-countryCode="MO" value="853">Macao (+853)</option>
+                    <option data-countryCode="MK" value="389">Macedonia (+389)</option>
+                    <option data-countryCode="MG" value="261">Madagascar (+261)</option>
+                    <option data-countryCode="MW" value="265">Malawi (+265)</option>
+                    <option data-countryCode="MY" value="60">Malaysia (+60)</option>
+                    <option data-countryCode="MV" value="960">Maldives (+960)</option>
+                    <option data-countryCode="ML" value="223">Mali (+223)</option>
+                    <option data-countryCode="MT" value="356">Malta (+356)</option>
+                    <option data-countryCode="MH" value="692">Marshall Islands (+692)</option>
+                    <option data-countryCode="MQ" value="596">Martinique (+596)</option>
+                    <option data-countryCode="MR" value="222">Mauritania (+222)</option>
+                    <option data-countryCode="YT" value="269">Mayotte (+269)</option>
+                    <option data-countryCode="MX" value="52">Mexico (+52)</option>
+                    <option data-countryCode="FM" value="691">Micronesia (+691)</option>
+                    <option data-countryCode="MD" value="373">Moldova (+373)</option>
+                    <option data-countryCode="MC" value="377">Monaco (+377)</option>
+                    <option data-countryCode="MN" value="976">Mongolia (+976)</option>
+                    <option data-countryCode="MS" value="1664">Montserrat (+1664)</option>
+                    <option data-countryCode="MA" value="212">Morocco (+212)</option>
+                    <option data-countryCode="MZ" value="258">Mozambique (+258)</option>
+                    <option data-countryCode="MN" value="95">Myanmar (+95)</option>
+                    <option data-countryCode="NA" value="264">Namibia (+264)</option>
+                    <option data-countryCode="NR" value="674">Nauru (+674)</option>
+                    <option data-countryCode="NP" value="977">Nepal (+977)</option>
+                    <option data-countryCode="NL" value="31">Netherlands (+31)</option>
+                    <option data-countryCode="NC" value="687">New Caledonia (+687)</option>
+                    <option data-countryCode="NZ" value="64">New Zealand (+64)</option>
+                    <option data-countryCode="NI" value="505">Nicaragua (+505)</option>
+                    <option data-countryCode="NE" value="227">Niger (+227)</option>
+                    <option data-countryCode="NG" value="234">Nigeria (+234)</option>
+                    <option data-countryCode="NU" value="683">Niue (+683)</option>
+                    <option data-countryCode="NF" value="672">Norfolk Islands (+672)</option>
+                    <option data-countryCode="NP" value="670">Northern Marianas (+670)</option>
+                    <option data-countryCode="NO" value="47">Norway (+47)</option>
+                    <option data-countryCode="OM" value="968">Oman (+968)</option>
+                    <option data-countryCode="PK" value="92">Pakistan (+92)</option>
+                    <option data-countryCode="PW" value="680">Palau (+680)</option>
+                    <option data-countryCode="PA" value="507">Panama (+507)</option>
+                    <option data-countryCode="PG" value="675">Papua New Guinea (+675)</option>
+                    <option data-countryCode="PY" value="595">Paraguay (+595)</option>
+                    <option data-countryCode="PE" value="51">Peru (+51)</option>
+                    <option data-countryCode="PH" value="63">Philippines (+63)</option>
+                    <option data-countryCode="PL" value="48">Poland (+48)</option>
+                    <option data-countryCode="PT" value="351">Portugal (+351)</option>
+                    <option data-countryCode="PR" value="1787">Puerto Rico (+1787)</option>
+                    <option data-countryCode="QA" value="974">Qatar (+974)</option>
+                    <option data-countryCode="RE" value="262">Reunion (+262)</option>
+                    <option data-countryCode="RO" value="40">Romania (+40)</option>
+                    <option data-countryCode="RU" value="7">Russia (+7)</option>
+                    <option data-countryCode="RW" value="250">Rwanda (+250)</option>
+                    <option data-countryCode="SM" value="378">San Marino (+378)</option>
+                    <option data-countryCode="ST" value="239">Sao Tome &amp; Principe (+239)</option>
+                    <option data-countryCode="SA" value="966">Saudi Arabia (+966)</option>
+                    <option data-countryCode="SN" value="221">Senegal (+221)</option>
+                    <option data-countryCode="CS" value="381">Serbia (+381)</option>
+                    <option data-countryCode="SC" value="248">Seychelles (+248)</option>
+                    <option data-countryCode="SL" value="232">Sierra Leone (+232)</option>
+                    <option data-countryCode="SG" value="65">Singapore (+65)</option>
+                    <option data-countryCode="SK" value="421">Slovak Republic (+421)</option>
+                    <option data-countryCode="SI" value="386">Slovenia (+386)</option>
+                    <option data-countryCode="SB" value="677">Solomon Islands (+677)</option>
+                    <option data-countryCode="SO" value="252">Somalia (+252)</option>
+                    <option data-countryCode="ZA" value="27">South Africa (+27)</option>
+                    <option data-countryCode="ES" value="34">Spain (+34)</option>
+                    <option data-countryCode="LK" value="94">Sri Lanka (+94)</option>
+                    <option data-countryCode="SH" value="290">St. Helena (+290)</option>
+                    <option data-countryCode="KN" value="1869">St. Kitts (+1869)</option>
+                    <option data-countryCode="SC" value="1758">St. Lucia (+1758)</option>
+                    <option data-countryCode="SR" value="597">Suriname (+597)</option>
+                    <option data-countryCode="SD" value="249">Sudan (+249)</option>
+                    <option data-countryCode="SZ" value="268">Swaziland (+268)</option>
+                    <option data-countryCode="SE" value="46">Sweden (+46)</option>
+                    <option data-countryCode="CH" value="41">Switzerland (+41)</option>
+                    <option data-countryCode="SY" value="963">Syria (+963)</option>
+                    <option data-countryCode="TW" value="886">Taiwan (+886)</option>
+                    <option data-countryCode="TJ" value="992">Tajikistan (+992)</option>
+                    <option data-countryCode="TH" value="66">Thailand (+66)</option>
+                    <option data-countryCode="TG" value="228">Togo (+228)</option>
+                    <option data-countryCode="TO" value="676">Tonga (+676)</option>
+                    <option data-countryCode="TT" value="1868">Trinidad &amp; Tobago (+1868)</option>
+                    <option data-countryCode="TN" value="216">Tunisia (+216)</option>
+                    <option data-countryCode="TR" value="90">Turkey (+90)</option>
+                    <option data-countryCode="TM" value="993">Turkmenistan (+993)</option>
+                    <option data-countryCode="TC" value="1649">Turks &amp; Caicos Islands (+1649)</option>
+                    <option data-countryCode="TV" value="688">Tuvalu (+688)</option>
+                    <option data-countryCode="UG" value="256">Uganda (+256)</option>
+                    <option data-countryCode="UA" value="380">Ukraine (+380)</option>
+                    <option data-countryCode="AE" value="971">United Arab Emirates (+971)</option>
+                    <option data-countryCode="UY" value="598">Uruguay (+598)</option>
+                    <option data-countryCode="UZ" value="998">Uzbekistan (+998)</option>
+                    <option data-countryCode="VU" value="678">Vanuatu (+678)</option>
+                    <option data-countryCode="VA" value="379">Vatican City (+379)</option>
+                    <option data-countryCode="VE" value="58">Venezuela (+58)</option>
+                    <option data-countryCode="VN" value="84">Vietnam (+84)</option>
+                    <option data-countryCode="VG" value="1">Virgin Islands - British (+1)</option>
+                    <option data-countryCode="VI" value="1">Virgin Islands - US (+1)</option>
+                    <option data-countryCode="WF" value="681">Wallis &amp; Futuna (+681)</option>
+                    <option data-countryCode="YE" value="969">Yemen (North)(+969)</option>
+                    <option data-countryCode="YE" value="967">Yemen (South)(+967)</option>
+                    <option data-countryCode="ZM" value="260">Zambia (+260)</option>
+                    <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
+                </select>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="col-sm-4 form-group">
+                <label asp-for="PhoneNumber">Phone</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter Your Contact Number.">
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="Password" name="password" class="form-control" placeholder="Enter your password." style="">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control"  placeholder="Re-enter your password." style="">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <p class="text-center">Already a member? &nbsp; <a asp-action="Login" asp-controller="Account" data-toggle="tab">Login</a></p>
+            <div class="col-sm-12 form-group mb-0">
+                <button class="btn btn-primary float-right">Submit</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+
+
+</html>

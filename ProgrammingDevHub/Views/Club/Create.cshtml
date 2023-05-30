@@ -1,0 +1,301 @@
+﻿@using ProgrammingDevHub.Data.Enums;
+@using ProgrammingDevHub.ViewModel;
+@model CreateClubViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css?family=Lato:400|Poppins:400');
+
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        background-color: white;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        height: 100vh;
+        line-height: 1.45;
+        color: #333;
+    }
+
+    p {
+        margin-bottom: 1.25em;
+    }
+
+    h1, h2, h3, h4, h5 {
+        margin: 2.75rem 0 1rem;
+        font-family: 'Lato', sans-serif;
+        font-weight: 400;
+        line-height: 1.15;
+    }
+
+    h1 {
+        margin-top: 0;
+        font-size: 1.802em;
+    }
+
+    h2 {
+        font-size: 1.602em;
+    }
+
+    h3 {
+        font-size: 1.424em;
+    }
+
+    h4 {
+        font-size: 1.266em;
+    }
+
+    h5 {
+        font-size: 1.125em;
+    }
+
+    small, .text_small {
+        font-size: 0.889em;
+    }
+
+
+    .bg-primary,
+    .btn-primary {
+        background-color: #009AD8 !important;
+    }
+
+    label {
+        margin-bottom: .35rem !important;
+    }
+
+    /* FORM VALIDATION */
+    .form-control.is-valid {
+        border-color: #28a745;
+        padding-right: calc(1.5em + .75rem);
+        background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8… 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e);
+        background-repeat: no-repeat;
+        background-position: center right calc(.375em + .1875rem);
+        background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    }
+
+    .form-control.is-invalid {
+        border-color: #dc3545;
+        padding-right: calc(1.5em + .75rem);
+        background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc354…%3e%3ccircle' cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E);
+        background-repeat: no-repeat;
+        background-position: center right calc(.375em + .1875rem);
+        background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    }
+
+    .label-form-control {
+        color: #888;
+    }
+
+        .label-form-control.required:before {
+            content: '*';
+            margin-right: .4rem;
+            color: #dc3545;
+        }
+
+    .feedback {
+        max-height: 0;
+        height: 0;
+        opacity: 0;
+        margin-top: .25rem;
+        font-size: 80%;
+    }
+
+    .valid-feedback {
+        display: none;
+        width: 100%;
+        color: #28a745;
+    }
+
+    .invalid-feedback {
+        display: none;
+        width: 100%;
+        color: #dc3545;
+    }
+
+    .form-control.is-invalid {
+        border-color: #dc3545 !important;
+    }
+
+        .form-control.is-invalid + .feedback,
+        .input-group.is-invalid + .feedback {
+            overflow: hidden;
+            transition: all 0.2s ease-in;
+            height: auto !important;
+            max-height: 100%;
+            color: #dc3545 !important;
+            opacity: 1;
+        }
+
+    .form-control.is-valid + .feedback,
+    .input-group.is-valid + .feedback {
+        overflow: hidden;
+        transition: all 0.2s ease-in;
+        height: auto !important;
+        max-height: 100%;
+        color: #28a745 !important;
+        opacity: 1;
+    }
+
+    .form-control.is-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    /* Input mask styles
+    * https://github.com/estelle/input-masking
+    */
+
+    .shell {
+        position: relative;
+        line-height: 1;
+    }
+
+        .shell span {
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            color: #ccc;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+            .shell span i {
+                font-style: normal;
+                /* any of these 3 will work */
+                color: transparent;
+                opacity: 0;
+                visibility: hidden;
+            }
+
+        input.masked,
+        .shell span {
+            font-size: 16px;
+            /*font-family: monospace;*/
+            padding-right: 10px;
+            background-color: transparent;
+            /*text-transform: uppercase;*/
+        }
+
+            input.masked::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: #d3d3d3;
+            }
+
+            input.masked::-moz-placeholder { /* Firefox 19+ */
+                color: #aeaeae;
+            }
+
+            input.masked:-ms-input-placeholder { /* IE 10+ */
+                color: #aeaeae;
+            }
+
+            input.masked:-moz-placeholder { /* Firefox 18- */
+                color: #aeaeae;
+            }
+
+    /* UTILITIES */
+
+    .max-h-75px {
+        max-height: 75px !important;
+    }
+
+    .max-h-600px {
+        max-height: 600px !important;
+    }
+
+    .max-w-600px {
+        max-width: 600px !important;
+    }
+
+    .max-w-260px {
+        max-width: 260px !important;
+    }
+
+    .max-w-240px {
+        max-width: 240px !important;
+    }
+
+    .max-w-220px {
+        max-width: 220px !important;
+    }
+
+    .max-w-100px {
+        max-width: 100px !important;
+    }
+
+    .min-h-100vh {
+        min-height: 100vh !important;
+    }
+
+    .min-w-100vh {
+        min-width: 100vh !important;
+    }
+
+    .h-100vh {
+        height: 100vh;
+    }
+
+    .w-100vh {
+        width: 100vh;
+    }
+
+    .nowrap {
+        white-space: nowrap !important;
+    }
+
+</style>
+
+<div class="container" >
+	<div class="row">
+		<div class="col-md-12">
+            <form method="post" asp-action="Create" enctype="multipart/form-data">
+                <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId" />
+				<h2 style="text-align: center;" class="help-text  pt-3 max-w-600px mx-auto">Create New</h2>
+				<div class="form-group max-w-600px mx-auto">
+                    <label class="label-form-control d-block" asp-for="Title">Title</label>
+                    <input asp-for="Title" class="form-control w-100" placeholder="">
+					<span asp-validation-for="Title" class="text-danger"></span>
+				</div><!-- end bootstrap form-group -->
+                <div class="form-group  max-w-600px mx-auto">
+                    <label class="label-form-control d-block" asp-for="Description">Description</label>
+                    <input asp-for="Description" class="form-control w-100" placeholder="">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div><!-- end bootstrap form-group -->
+                <div class="form-group form-group-name max-w-600px mx-auto">
+                    <label class="label-form-control d-block required" asp-for="ClubCategory">Club Category</label>
+                    <select asp-for="ClubCategory" class="form-control w-100"  asp-items="@Html.GetEnumSelectList<ClubCategory>()">
+                        <option>---Select---</option>
+                    </select>
+					<span asp-validation-for="ClubCategory" class="text-danger"></span>
+				</div><!-- end bootstrap form-group -->
+                <div class="form-group max-w-600px mx-auto">
+                    <label class="label-form-control d-block" asp-for="Language.Language">Language</label>
+                    <input asp-for="Language.Language" class="form-control w-100">
+                    <span asp-validation-for="Language.Language" class="text-danger"></span>
+				</div><!-- end bootstrap form-group -->
+                <div class="form-group form-group-name max-w-600px mx-auto">
+                    <label class="label-form-control d-block required" asp-for="Language.Description">Language  Description</label>
+                    <input asp-for="Language.Description" class="form-control w-100">
+                    <span asp-validation-for="Language.Description" class="text-danger"></span>
+                </div><!-- end bootstrap form-group -->
+                <div class="form-group form-group-name max-w-600px mx-auto">
+                    <label class="label-form-control d-block" asp-for="Image">Image</label>
+                    <input asp-for="Image" type="file" class="form-control w-100">
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div><!-- end bootstrap form-group -->
+				<div class=" form-group form-group-submit max-w-600px mx-auto mt-5">
+					<button class="btn btn-primary" type="submit">Submit</button>
+				</div><!-- end bootstrap form-group -->
+			</form>
+		</div><!-- end bootstrap col -->
+	</div><!-- end bootstrap row -->
+</div><!-- end bootstrap container -->
+
+
+
+
